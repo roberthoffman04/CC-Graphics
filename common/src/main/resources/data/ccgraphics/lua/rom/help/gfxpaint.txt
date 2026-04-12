@@ -1,0 +1,4 @@
+gfxpaint is a simple pixel drawing program that uses graphics mode.
+Use the mouse to draw pixels on the screen.
+Click the color palette at the top to change colors.
+Press 'q' to quit.

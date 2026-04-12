@@ -1,0 +1,28 @@
+# Gradle
+.gradle/
+build/
+fabric/build/
+forge/build/
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.launch
+
+# Minecraft mappings & run configs
+run/
+runs/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local config
+local.properties

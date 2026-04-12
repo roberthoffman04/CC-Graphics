@@ -1,0 +1,28 @@
+{
+    "schemaVersion": 1,
+    "id": "ccgraphics",
+    "version": "${version}",
+    "name": "CC: Graphics",
+    "description": "CraftOS-PC compatible graphics mode for CC:Tweaked terminals",
+    "authors": ["sashafiesta"],
+    "license": "MIT",
+    "environment": "*",
+    "accessWidener": "ccgraphics.accesswidener",
+    "entrypoints": {
+        "main": [
+            "com.sashafiesta.ccgraphics.fabric.CCGraphicsFabric"
+        ]
+    },
+    "mixins": [
+        "ccgraphics.mixins.json",
+        {
+            "config": "ccgraphics-client.mixins.json",
+            "environment": "client"
+        }
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.0",
+        "minecraft": "1.21.1",
+        "computercraft": ">=1.116.0"
+    }
+}

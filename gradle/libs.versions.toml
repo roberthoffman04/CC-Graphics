@@ -1,0 +1,24 @@
+[versions]
+minecraft = "1.21.1"
+fabric-loader = "0.15.11"
+fabric-api = "0.102.1+1.21.1"
+fabric-loom = "1.12.3"
+neoforge = "21.1.9"
+modDevGradle = "2.0.95"
+parchment = "2024.07.28"
+parchmentMc = "1.21"
+cc-tweaked = "1.116.2"
+cc-tweaked-core-latest = "1.117.1"
+nightConfig = "3.8.1"
+
+[libraries]
+cc-tweaked-core = { module = "cc.tweaked:cc-tweaked-1.21.1-core", version.ref = "cc-tweaked-core-latest" }
+cc-tweaked-common = { module = "cc.tweaked:cc-tweaked-1.21.1-common", version.ref = "cc-tweaked" }
+cc-tweaked-fabric = { module = "cc.tweaked:cc-tweaked-1.21.1-fabric", version.ref = "cc-tweaked" }
+cc-tweaked-forge = { module = "cc.tweaked:cc-tweaked-1.21.1-forge", version.ref = "cc-tweaked" }
+nightConfig-core = { module = "com.electronwill.night-config:core", version.ref = "nightConfig" }
+nightConfig-toml = { module = "com.electronwill.night-config:toml", version.ref = "nightConfig" }
+
+[plugins]
+fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
+modDevGradle = { id = "net.neoforged.moddev", version.ref = "modDevGradle" }

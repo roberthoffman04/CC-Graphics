@@ -34,6 +34,7 @@ abstract class TerminalMixin implements IGraphicsTerminal {
     private void ccgraphics$onInit(int width, int height, boolean colour, Runnable changedCallback, CallbackInfo ci) {
         ccgraphics$graphics = new byte[width * PIXELS_W * height * PIXELS_H];
         Arrays.fill(ccgraphics$graphics, (byte) 0x0F);
+        ccgraphics$resetExtPalette();
     }
 
     @Inject(method = "clear", at = @At("HEAD"))
@@ -63,6 +64,7 @@ abstract class TerminalMixin implements IGraphicsTerminal {
     @Unique
     private void ccgraphics$resetExtPalette() {
         ccgraphics$extPaletteARGB = new int[240];
+        Arrays.fill(ccgraphics$extPaletteARGB, 0xFF000000);
         ccgraphics$extPaletteRGB = new double[240][3];
     }
 

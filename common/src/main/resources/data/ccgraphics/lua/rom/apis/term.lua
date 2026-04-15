@@ -53,8 +53,7 @@ term.redirect = function(target)
         "drawPixels",
         "getPixels",
         "setFrozen",
-        "getFrozen",
-        "getPixelSize"
+        "getFrozen"
     } do
         if target[method] == nil then
             target[method] = native[method]
@@ -111,18 +110,3 @@ for k, v in pairs(native) do
     end
 end
 
--- Wrap getSize to support mode argument for pixel dimensions (CraftOS-PC compatible).
--- The native getSize() takes no args; getPixelSize() provides the pixel dimensions.
--- getPixelSize is hidden from the public API - only getSize(mode) is exposed.
-local nativeGetSize = term.getSize
-local nativeGetPixelSize = native.getPixelSize
-term.getPixelSize = nil
-term.getSize = function(mode)
-    if (mode == true) or (type(mode) == "number" and mode >= 1) then
-        return nativeGetPixelSize()
-    elseif mode == nil or mode == false or (type(mode) == "number" and mode == 0) then
-        return nativeGetSize()
-    else
-        error("bad argument #1 (expected boolean or number, got " .. type(mode) .. ")", 2)
-    end
-end

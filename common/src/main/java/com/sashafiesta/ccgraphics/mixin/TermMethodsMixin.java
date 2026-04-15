@@ -10,6 +10,7 @@ import dan200.computercraft.core.terminal.Palette;
 import dan200.computercraft.core.terminal.Terminal;
 import dan200.computercraft.shared.peripheral.monitor.MonitorPeripheral;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -273,10 +274,38 @@ abstract class TermMethodsMixin {
         return ccgraphics$gfx().ccgraphics$getFrozen();
     }
 
-    @LuaFunction
-    public final Object[] getPixelSize() throws LuaException {
+    @Unique
+    private Object[] ccgraphics$getPixelSize() throws LuaException {
         var gfx = ccgraphics$gfx();
         return new Object[]{ gfx.ccgraphics$getGraphicsWidth(), gfx.ccgraphics$getGraphicsHeight() };
+    }
+
+    /**
+     * Strips @LuaFunction from the original no-arg getSize so the IArguments
+     * overload below becomes the sole Lua binding. The no-arg method is kept
+     * for any internal Java callers.
+     */
+    @Overwrite
+    public final Object[] getSize() throws LuaException {
+        var terminal = getTerminal();
+        return new Object[]{ terminal.getWidth(), terminal.getHeight() };
+    }
+
+    /**
+     * Replacement getSize that accepts an optional mode argument.
+     * Works for both the term API and peripherals (peripheral.call).
+     */
+    @LuaFunction
+    public final Object[] getSize(IArguments args) throws LuaException {
+        var terminal = getTerminal();
+        var value = args.get(0);
+        if ((value instanceof Boolean b && b) || (value instanceof Number n && n.intValue() >= 1)) {
+            var gfx = (IGraphicsTerminal) terminal;
+            return new Object[]{ gfx.ccgraphics$getGraphicsWidth(), gfx.ccgraphics$getGraphicsHeight() };
+        } else if (value != null && !(value instanceof Boolean) && !(value instanceof Number)) {
+            throw ccgraphics$badArgType(1, "boolean or number", value);
+        }
+        return new Object[]{ terminal.getWidth(), terminal.getHeight() };
     }
 
     @Inject(method = "setPaletteColour", at = @At("HEAD"), cancellable = true)

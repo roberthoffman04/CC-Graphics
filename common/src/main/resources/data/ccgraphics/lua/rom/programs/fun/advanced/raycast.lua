@@ -6,7 +6,10 @@ if term.getGraphicsMode == nil then error("This requires CraftOS-PC v1.2 or late
 
 local previousTerm = term.current()
 local monitor = peripheral and peripheral.find and peripheral.find("monitor") or nil
-if monitor then term.redirect(monitor) end
+if monitor then 
+    monitor.setTextScale(0.5)
+    term.redirect(monitor)
+end
 
 local function cleanup()
     if term.getGraphicsMode and term.getGraphicsMode() then
